@@ -1,5 +1,74 @@
-name_prefix         = "redis-demo"
-aws_region          = "us-west-2"
-vpc_cidr            = "10.0.0.0/16"
-public_subnet_cidrs = ["10.0.1.0/24", "10.0.2.0/24"]
-azs                 = ["us-west-2a", "us-west-2b"]
+#####################
+# General Settings
+#####################
+
+name_prefix = "redis-demo"
+aws_region  = "us-west-2"
+
+#####################
+# VPC Configuration
+#####################
+
+vpc_cidr             = "10.0.0.0/16"
+azs                  = ["us-west-2a", "us-west-2b"]
+public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnet_cidrs = ["10.0.3.0/24", "10.0.4.0/24"]
+
+#####################
+# Tagging
+#####################
+
+owner   = "userA"
+project = "redis-cloud-migration-demo"
+
+#####################
+# Security Group
+#####################
+
+# Allow SSH access (recommended to use your IP only)
+allow_ssh_from = ["YOUR.IP.ADDRESS/32"]  # safer default than 0.0.0.0/0
+
+#####################
+# ElastiCache Settings
+#####################
+
+node_type            = "cache.t3.small"
+
+# Standalone Redis
+standalone_replicas  = 1
+
+# Clustered Redis
+num_shards           = 2
+replicas_per_shard   = 1
+
+#####################
+# EC2 for RIOTX
+#####################
+
+ami_id               = "ami-075686beab831bb7f"  # Ubuntu 22.04 LTS (us-west-2)
+key_name             = "your-keypair-name"
+ssh_private_key_path = "~/.ssh/redis-migration-us-west-2.pem"
+ec2_instance_type    = "t2.xlarge"
+
+#####################
+# Redis Cloud Settings
+#####################
+
+rediscloud_api_key            = "REPLACE_ME"
+rediscloud_secret_key         = "REPLACE_ME"
+subscription_name             = "redis-demo-subscription"
+database_name                 = "redis-demo-db"
+rediscloud_region             = "us-west-2"
+networking_deployment_cidr    = "10.42.0.0/24"
+preferred_azs                 = ["usw2-az1", "usw2-az2", "usw2-az3"]
+credit_card_type              = "Visa"
+credit_card_last_four         = "0000"
+dataset_size_in_gb            = 1
+throughput_value              = 1000
+modules_enabled               = ["RedisJSON"]
+
+#####################
+# Redis Cloud Peering
+#####################
+
+aws_account_id = "REPLACE_ME"
