@@ -93,6 +93,23 @@ module "ec2_riot" {
   ssh_private_key_path = var.ssh_private_key_path
 }
 
+#### EC2 Application
+
+module "ec2_application" {
+  source               = "./modules/ec2_application"
+  name_prefix          = var.name_prefix
+  owner                = var.owner
+  project              = var.project
+  ami_id               = var.ami_id
+  instance_type        = var.ec2_instance_type
+  subnet_id            = module.vpc.public_subnet_ids[1]
+  security_group_id    = module.security_group.riot_ec2_sg_id
+  key_name             = var.key_name
+  ssh_private_key_path = var.ssh_private_key_path
+}
+
+
+#### Redis Cloud
 
 module "rediscloud" {
   source = "./modules/rediscloud"
