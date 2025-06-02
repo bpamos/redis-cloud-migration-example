@@ -10,3 +10,6 @@ output "public_dns" {
   value = aws_instance.riot.public_dns
 }
 
+output "riotx_ready_id" {
+  value = null_resource.riotx_ready.id
+}
