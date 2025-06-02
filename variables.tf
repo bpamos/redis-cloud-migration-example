@@ -242,12 +242,6 @@ variable "tags" {
   }
 }
 
-### Redis Cloud Peering
-# variable "route_table_id" {
-#   description = "Route table ID in the AWS VPC to associate with Redis Cloud peering"
-#   type        = string
-# }
-
 variable "peer_cidr_block" {
   description = "The Redis Cloud networking CIDR block to route into AWS VPC"
   type        = string
@@ -259,24 +253,10 @@ variable "aws_account_id" {
   type        = string
 }
 
-# variable "vpc_id" {
-#   description = "AWS VPC ID to peer with Redis Cloud"
-#   type        = string
-# }
+### RIOTX Replication
 
-# variable "rediscloud_subscription_id" {
-#   description = "Redis Cloud subscription ID for peering"
+# variable "rediscloud_secret_key" {
+#   description = "Redis Cloud database access password."
 #   type        = string
-# }
-
-# variable "rediscloud_peering_enabled" {
-#   description = "Flag to enable Redis Cloud peering setup"
-#   type        = bool
-#   default     = true
-# }
-
-# variable "rediscloud_peering_wait_time" {
-#   description = "Optional wait time before setting up the peering accepter or route, to ensure Redis CIDR is ready"
-#   type        = string
-#   default     = "30s"
+#   sensitive   = true
 # }
