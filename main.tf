@@ -24,54 +24,58 @@ module "security_group" {
 #### Elasticache Standalone
 
 module "elasticache_standalone" {
-  source            = "./modules/elasticache/standalone"
-  name_prefix       = var.name_prefix
-  subnet_ids        = module.vpc.private_subnet_ids
-  security_group_id = module.security_group.elasticache_sg_id
-  node_type         = var.node_type
-  replicas          = var.standalone_replicas
-  owner             = var.owner
-  project           = var.project
+  source                   = "./modules/elasticache/standalone"
+  name_prefix              = var.name_prefix
+  replication_group_suffix = "standalone"
+  subnet_ids               = module.vpc.private_subnet_ids
+  security_group_id        = module.security_group.elasticache_sg_id
+  node_type                = var.node_type
+  replicas                 = var.standalone_replicas
+  owner                    = var.owner
+  project                  = var.project
 }
-
 
 #### Elasticache Clustered
 
 module "elasticache_clustered" {
-  source              = "./modules/elasticache/clustered"
-  name_prefix         = var.name_prefix
-  subnet_ids          = module.vpc.private_subnet_ids
-  security_group_id   = module.security_group.elasticache_sg_id
-  node_type           = var.node_type
-  num_shards          = var.num_shards
-  replicas_per_shard  = var.replicas_per_shard
-  owner               = var.owner
-  project             = var.project
+  source                   = "./modules/elasticache/clustered"
+  name_prefix              = var.name_prefix
+  replication_group_suffix = "clustered"
+  subnet_ids               = module.vpc.private_subnet_ids
+  security_group_id        = module.security_group.elasticache_sg_id
+  node_type                = var.node_type
+  num_shards               = var.num_shards
+  replicas_per_shard       = var.replicas_per_shard
+  owner                    = var.owner
+  project                  = var.project
 }
 
 #### Elasticache with KSN enabled
 
 module "elasticache_standalone_ksn" {
-  source            = "./modules/elasticache/standalone_ksn_enabled"
-  name_prefix       = var.name_prefix
-  subnet_ids        = module.vpc.private_subnet_ids
-  security_group_id = module.security_group.elasticache_sg_id
-  node_type         = var.node_type
-  replicas          = var.standalone_replicas
-  owner             = var.owner
-  project           = var.project
+  source                   = "./modules/elasticache/standalone_ksn_enabled"
+  name_prefix              = var.name_prefix
+  replication_group_suffix = "standalone-ksn"
+  subnet_ids               = module.vpc.private_subnet_ids
+  security_group_id        = module.security_group.elasticache_sg_id
+  node_type                = var.node_type
+  replicas                 = var.standalone_replicas
+  owner                    = var.owner
+  project                  = var.project
 }
 
+
 module "elasticache_clustered_ksn" {
-  source                = "./modules/elasticache/clustered_ksn_enabled"
-  name_prefix           = var.name_prefix
-  subnet_ids            = module.vpc.private_subnet_ids
-  security_group_id     = module.security_group.elasticache_sg_id
-  node_type             = var.node_type
-  num_shards            = var.num_shards
-  replicas_per_shard    = var.replicas_per_shard
-  owner                 = var.owner
-  project               = var.project
+  source                   = "./modules/elasticache/clustered_ksn_enabled"
+  name_prefix              = var.name_prefix
+  replication_group_suffix = "clustered-ksn"
+  subnet_ids               = module.vpc.private_subnet_ids
+  security_group_id        = module.security_group.elasticache_sg_id
+  node_type                = var.node_type
+  num_shards               = var.num_shards
+  replicas_per_shard       = var.replicas_per_shard
+  owner                    = var.owner
+  project                  = var.project
 }
 
 #### RIOT EC2
