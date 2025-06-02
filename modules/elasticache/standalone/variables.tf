@@ -3,6 +3,11 @@ variable "name_prefix" {
   type        = string
 }
 
+variable "replication_group_suffix" {
+  description = "Suffix to ensure unique ElastiCache replication group name"
+  type        = string
+}
+
 variable "subnet_ids" {
   description = "List of subnet IDs for ElastiCache (must be in private subnets)"
   type        = list(string)
@@ -24,7 +29,6 @@ variable "replicas" {
   type        = number
   default     = 0
 }
-
 
 variable "owner" {
   description = "Owner tag"

@@ -37,3 +37,9 @@ variable "project" {
   description = "Project tag"
   type        = string
 }
+
+variable "replication_group_suffix" {
+  description = "Suffix to make replication group ID unique"
+  type        = string
+}
+
