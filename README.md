@@ -32,8 +32,6 @@ cd redis-cloud-migration-example
 Create a terraform.tfvars file based on the example:
 
 bash
-Copy
-Edit
 cp terraform.tfvars.example terraform.tfvars
 Update the placeholder values (e.g. Redis Cloud API keys, AWS account ID, SSH IP, etc.).
 
@@ -52,22 +50,16 @@ EC2 instance	With Redis OSS and RIOTX installed
 Once the EC2 instance is running:
 
 bash
-Copy
-Edit
 ssh -i ~/.ssh/redis-migration-us-west-2.pem ec2-user@<EC2_PUBLIC_IP>
 Verify installation:
 
 bash
-Copy
-Edit
 riotx --version
 redis-server --version
 🔄 Next Step: Run Migration
 You can manually or automatically run:
 
 bash
-Copy
-Edit
 riotx replicate \
   --source redis://<elasticache-endpoint>:6379 \
   --target redis://<redis-cloud-endpoint>:6379 \
@@ -80,13 +72,9 @@ A Terraform null_resource to trigger this automatically is the next enhancement 
 To destroy all provisioned infrastructure:
 
 bash
-Copy
-Edit
 terraform destroy
 📁 Project Structure
-text
-Copy
-Edit
+
 .
 ├── main.tf                    # Root module
 ├── terraform.tfvars.example  # Variable template
