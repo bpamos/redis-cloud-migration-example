@@ -19,25 +19,25 @@ output "route_table_id" {
 
 ### Elasticache
 
-output "elasticache_standalone_endpoint" {
-  description = "Primary endpoint of the standalone (non-clustered) Redis"
-  value       = module.elasticache_standalone.primary_endpoint
-}
+# output "elasticache_standalone_endpoint" {
+#   description = "Primary endpoint of the standalone (non-clustered) Redis"
+#   value       = module.elasticache_standalone.primary_endpoint
+# }
 
-output "elasticache_clustered_endpoint" {
-  description = "Primary endpoint of the clustered Redis group"
-  value       = module.elasticache_clustered.primary_endpoint_address
-}
+# output "elasticache_clustered_endpoint" {
+#   description = "Primary endpoint of the clustered Redis group"
+#   value       = module.elasticache_clustered.primary_endpoint_address
+# }
 
-output "elasticache_clustered_id" {
-  description = "Replication group ID of clustered Redis"
-  value       = module.elasticache_clustered.replication_group_id
-}
+# output "elasticache_clustered_id" {
+#   description = "Replication group ID of clustered Redis"
+#   value       = module.elasticache_clustered.replication_group_id
+# }
 
-output "elasticache_standalone_id" {
-  description = "Replication group ID of standalone Redis"
-  value       = module.elasticache_standalone.replication_group_id
-}
+# output "elasticache_standalone_id" {
+#   description = "Replication group ID of standalone Redis"
+#   value       = module.elasticache_standalone.replication_group_id
+# }
 
 ### Elasticache Standalonewith KSN enabled
 
@@ -55,17 +55,17 @@ output "elasticache_standalone_ksn_parameter_group" {
 
 ### Elasticache Clustered with KSN enabled
 
-output "elasticache_clustered_ksn_primary_endpoint" {
-  value = module.elasticache_clustered_ksn.primary_endpoint_address
-}
+# output "elasticache_clustered_ksn_primary_endpoint" {
+#   value = module.elasticache_clustered_ksn.primary_endpoint_address
+# }
 
-output "elasticache_clustered_ksn_replication_group_id" {
-  value = module.elasticache_clustered_ksn.replication_group_id
-}
+# output "elasticache_clustered_ksn_replication_group_id" {
+#   value = module.elasticache_clustered_ksn.replication_group_id
+# }
 
-output "elasticache_clustered_ksn_parameter_group" {
-  value = module.elasticache_clustered_ksn.parameter_group_name
-}
+# output "elasticache_clustered_ksn_parameter_group" {
+#   value = module.elasticache_clustered_ksn.parameter_group_name
+# }
 
 
 # RIOT EC2
