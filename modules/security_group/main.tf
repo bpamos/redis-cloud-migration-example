@@ -4,11 +4,35 @@ resource "aws_security_group" "riot_ec2" {
   vpc_id      = var.vpc_id
 
   ingress {
-    description      = "Allow SSH (optional)"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = var.allow_ssh_from
+    description = "Allow SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.allow_ssh_from
+  }
+
+  ingress {
+    description = "Grafana UI"
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = var.allow_ssh_from
+  }
+
+  ingress {
+    description = "Prometheus UI"
+    from_port   = 9090
+    to_port     = 9090
+    protocol    = "tcp"
+    cidr_blocks = var.allow_ssh_from
+  }
+
+  ingress {
+    description = "RIOTX Prometheus Metrics Exporter"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = var.allow_ssh_from
   }
 
   egress {
@@ -32,7 +56,7 @@ resource "aws_security_group" "elasticache" {
   vpc_id      = var.vpc_id
 
   ingress {
-    description     = "Allow Redis access from EC2"
+    description     = "Allow Redis access from RIOT EC2"
     from_port       = 6379
     to_port         = 6379
     protocol        = "tcp"
