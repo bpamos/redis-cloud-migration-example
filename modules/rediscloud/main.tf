@@ -53,7 +53,7 @@ resource "rediscloud_subscription_database" "db" {
 
   alert {
     name  = "dataset-size"
-    value = 1
+    value = 95
   }
 
   tags = var.tags
