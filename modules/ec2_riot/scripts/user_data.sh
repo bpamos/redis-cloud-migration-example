@@ -20,7 +20,7 @@ retry() {
 
 # Update & install required packages
 retry sudo apt-get update -y
-retry sudo apt-get install -y redis-server curl unzip
+retry sudo apt-get install -y redis-server curl unzip git docker.io
 
 # Start Redis
 sudo systemctl enable redis-server
@@ -54,4 +54,23 @@ else
   exit 1
 fi
 
-echo "=== Setup complete ==="
+echo "=== RIOTX installed. Proceeding with observability setup ==="
+
+# Enable Docker and add ubuntu user to docker group
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker ubuntu
+
+# Install Docker Compose v2 (manually)
+mkdir -p /home/ubuntu/.docker/cli-plugins
+curl -SL https://github.com/docker/compose/releases/download/v2.27.1/docker-compose-linux-x86_64 -o /home/ubuntu/.docker/cli-plugins/docker-compose
+chmod +x /home/ubuntu/.docker/cli-plugins/docker-compose
+chown -R ubuntu:ubuntu /home/ubuntu/.docker
+
+# Clone riotx-dist and launch Prometheus + Grafana
+cd /home/ubuntu
+git clone https://github.com/redis-field-engineering/riotx-dist.git
+cd riotx-dist
+sudo -u ubuntu docker compose up -d
+
+echo "=== Setup complete: Prometheus running on port 9090, Grafana on port 3000 ==="
