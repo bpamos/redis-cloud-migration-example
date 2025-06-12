@@ -40,3 +40,22 @@ variable "ssh_private_key_path" {
   description = "Path to private key file for SSH access"
   type        = string
 }
+
+### elasticache vars for leaderboard app
+
+variable "redis_host" {
+  description = "The hostname of the Redis server (ElastiCache or Redis Cloud)"
+  type        = string
+}
+
+variable "redis_port" {
+  description = "The Redis server port"
+  type        = number
+  default     = 6379
+}
+
+variable "redis_password" {
+  description = "Redis password (optional, used for Redis Cloud)"
+  type        = string
+  default     = ""
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Redis Leaderboard</title>
+  <meta http-equiv="refresh" content="1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f8;
+      color: #333;
+      padding: 20px;
+    }
+    h1 {
+      color: #c92c48;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2em;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #c92c48;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .activity-log {
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <h1>🏆 Live Leaderboard</h1>
+  <table>
+    <tr>
+      <th>Rank</th>
+      <th>User</th>
+      <th>Score</th>
+      <th>Last Score</th>
+      <th>Games Played</th>
+    </tr>
+    {% for player in top_players %}
+    <tr>
+      <td>{{ loop.index }}</td>
+      <td>{{ player.user }}</td>
+      <td>{{ player.score }}</td>
+      <td>{{ player.last_score }}</td>
+      <td>{{ player.games_played }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <h2>📝 Recent Activity</h2>
+  <ul class="activity-log">
+    {% for entry in recent_activity %}
+      <li><strong>{{ entry.user }}</strong> scored {{ entry.score }} ({{ entry.id }})</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
