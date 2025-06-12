@@ -103,9 +103,17 @@ module "ec2_application" {
   ami_id               = var.ami_id
   instance_type        = var.ec2_instance_type
   subnet_id            = module.vpc.public_subnet_ids[1]
-  security_group_id    = module.security_group.riot_ec2_sg_id
+  security_group_id    = module.security_group.ec2_application_sg_id
   key_name             = var.key_name
   ssh_private_key_path = var.ssh_private_key_path
+  #elasticache vars
+  redis_host           = module.elasticache_standalone_ksn.primary_endpoint
+  redis_port           = 6379
+  redis_password       = "" # ElastiCache doesn't require auth by default
+
+  depends_on = [
+    module.elasticache_standalone_ksn
+  ]
 }
 
 
@@ -185,3 +193,44 @@ module "create_memtier" {
 }
 
 
+#### Cutover
+module "cutover" {
+  source                = "./modules/cutover"
+  redis_cloud_endpoint  = module.rediscloud.database_private_endpoint
+  redis_cloud_password  = module.rediscloud.rediscloud_password
+  ssh_private_key_path  = var.ssh_private_key_path
+  ec2_application_ip    = module.ec2_application.public_ip
+
+  depends_on = [
+    module.rediscloud,
+    module.ec2_application,
+    module.riotx_replication
+  ]
+}
+
+
+
+
+#### Cutover UI 
+locals {
+  redis_host = split(":", module.rediscloud.database_private_endpoint)[0]
+  redis_port = split(":", module.rediscloud.database_private_endpoint)[1]
+}
+
+module "cutover_ui" {
+  source = "./modules/cutover_ui"
+
+  ec2_application_ip     = module.ec2_application.public_ip
+  ssh_private_key_path  = var.ssh_private_key_path
+  redis_cloud_endpoint   = local.redis_host
+  redis_cloud_port       = local.redis_port
+  redis_cloud_password   = module.rediscloud.rediscloud_password
+  #app_ui_url             = "http://${module.ec2_application.public_ip}:5000"
+
+  depends_on = [
+    module.ec2_application,
+    module.rediscloud,
+    module.riotx_replication,
+    module.cutover
+  ]
+}

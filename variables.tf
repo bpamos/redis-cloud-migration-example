@@ -253,10 +253,83 @@ variable "aws_account_id" {
   type        = string
 }
 
-### RIOTX Replication
+### elasticache vars for leaderboard app
 
-# variable "rediscloud_secret_key" {
-#   description = "Redis Cloud database access password."
+# variable "redis_host" {
+#   description = "The hostname of the Redis server (ElastiCache or Redis Cloud)"
 #   type        = string
-#   sensitive   = true
+# }
+
+variable "redis_port" {
+  description = "The Redis server port"
+  type        = number
+  default     = 6379
+}
+
+variable "redis_password" {
+  description = "Redis password (optional, used for Redis Cloud)"
+  type        = string
+  default     = ""
+}
+
+output "ec2_application_sg_id" {
+  value = module.security_group.ec2_application_sg_id
+}
+
+##### Cutover
+# variable "redis_active_endpoint" {
+#   description = "Redis Cloud endpoint to use for cutover (host:port)"
+#   type        = string
+# }
+
+# variable "ssh_private_key_path" {
+#   description = "Path to SSH private key for connecting to app EC2"
+#   type        = string
+# }
+
+# variable "ec2_application_ip" {
+#   description = "Public IP address of the EC2 application node"
+#   type        = string
+# }
+
+
+##### OLD CUTOVER
+
+# # Cutover Strategy and Redis Target
+
+# variable "cutover_strategy" {
+#   description = "Which cutover strategy to use: dns or config_file"
+#   type        = string
+#   default     = "dns"
+# }
+
+# # Only needed for DNS strategy
+# variable "route53_zone_id" {
+#   description = "Route 53 hosted zone ID for redis DNS cutover"
+#   type        = string
+#   default     = ""
+# }
+
+# variable "route53_subdomain" {
+#   description = "Subdomain to create for redis DNS (e.g., 'demo' → redis.demo.example.com)"
+#   type        = string
+#   default     = ""
+# }
+
+# variable "base_domain" {
+#   description = "Base domain name used for DNS (e.g., 'example.com')"
+#   type        = string
+#   default     = "redisdemo.com"
+# }
+
+# variable "initial_redis_endpoint" {
+#   description = "The initial Redis endpoint to point DNS to before cutover"
+#   type        = string
+#   default     = ""  # we’ll assign dynamically
+# }
+
+# variable "enable_initial_dns" {
+#   description = "Whether to create the initial DNS record to point to ElastiCache"
+#   type        = bool
+#   default     = true
 # }

@@ -141,3 +141,22 @@ output "riotx_replication_status" {
   }
 }
 
+### Cutover
+
+# output "active_cutover_strategy" {
+#   value = var.cutover_strategy
+# }
+
+# output "active_dns_record" {
+#   value = var.cutover_strategy == "dns" ? "redis.${var.route53_subdomain}" : ""
+# }
+
+# output "cutover_dns_full_record" {
+#   value = var.cutover_strategy == "dns" ? "redis.${var.route53_subdomain}.redisdemo.com" : ""
+#   description = "Fully qualified DNS name when using DNS cutover"
+# }
+
+# output "redis_target_config_file_path" {
+#   description = "Path on EC2 where Redis target was written"
+#   value       = module.cutover.cutover_config_file_written
+# }
